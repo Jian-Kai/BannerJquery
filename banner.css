@@ -1,0 +1,92 @@
+.opened {
+    height: 300px;
+    width: 1200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.opening {
+    width: 1200px;
+    overflow: hidden;
+    position: relative;
+    animation-name: opening;
+    animation-duration: .6s;
+}
+
+.opening>a>img {
+    position: relative;
+    animation-name: openingI;
+    animation-duration: .5s;
+}
+
+@keyframes opening {
+    from {
+        height: 80px;
+    }
+    to {
+        height: 300px;
+    }
+}
+
+@keyframes openingI {
+    from {
+        top: -300px;
+    }
+    to {
+        top: 00px;
+    }
+}
+
+.closed {
+    height: 80px;
+    width: 1200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.closed>a>img {
+    position: relative;
+    top: -300px;
+}
+
+.closing{
+    width: 1200px;
+    overflow: hidden;
+    position: relative;
+    animation-name: closingB;
+    animation-duration: .6s;
+}
+
+.closing>a>img {
+    position: relative;
+    animation-name: closingI;
+    animation-duration: .6s;
+}
+
+@keyframes closingB{
+    from {
+        height: 300px;
+    }
+    to {
+        height: 80px;
+    }
+}
+
+@keyframes closingI{
+    from {
+        top: 0px;
+    }
+    to {
+        top: -300px;
+    }
+}
+
+.btn {
+    height: 20px;
+    width: 40px;
+    background: red;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 10px;
+}
