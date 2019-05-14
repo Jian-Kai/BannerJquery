@@ -170,16 +170,21 @@
             $('.banner').banner({
                 openAtStart: true,
                 autoToggle: true,
-                transition: true,
                 class: {
                     opened: 'red',
-                    closed: 'blue'
+                    closed: 'blue',
+                    opening: 'green',
+                    closing: 'purple',
                 },
                 button: {
                     closeText: 'close', 
                     openText: 'open', 
-                    //class: 'btnt'
+                    class: 'btnt'
                 },
+                transition: true,
+                whenTransition: function () {
+                    console.log('whenTransition000000');
+                }
             });
 
             $('.banner').banner('toggle');
