@@ -15,7 +15,7 @@ $('.banner').banner({
 		openText: '展開', // [string]
 		class: 'btn' // [string]
 	},
-	// 設定模組在各狀態時的class
+	// 設定模組在各狀態時的class  user額外新增的class
 	class: {
 		closed: 'closed', // [string]
 		closing: 'closing', // [string]

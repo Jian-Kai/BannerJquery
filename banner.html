@@ -64,30 +64,30 @@
                 console.log('this is click!!!');
                 if (this.option.openAtStart) {
                     this.close();
-                    this.$ele.find("button").text(this.option.button.openText)
+                    this.$ele.find(".btn").text(this.option.button.openText);                 
                 }
                 else {
                     this.open();
-                    this.$ele.find("button").text(this.option.button.closeText)
+                    this.$ele.find(".btn").text(this.option.button.closeText)
                 }
-
+                this.$ele.find(".btn").toggleClass('changed');
                 this.option.openAtStart = !(this.option.openAtStart)
             };
 
             Module.prototype.open = function () {
-                $(this.ele).removeClass(this.option.class.closed)
+                $(this.ele).removeClass('closed ' + this.option.class.closed)
                 //handle transition true or false
                 if (this.option.transition) {
-                    $(this.ele).addClass(this.option.class.opening)
-                    const Interval = setInterval(this.option.whenTransition,20)
+                    $(this.ele).addClass('opening ' + this.option.class.opening)
+                    const Interval = setInterval(this.option.whenTransition, 20)
                     setTimeout(function () {
-                        $(this.ele).removeClass(this.option.class.opening);
-                        $(this.ele).addClass(this.option.class.opened);
+                        $(this.ele).removeClass('opening ' + this.option.class.opening);
+                        $(this.ele).addClass('opened ' + this.option.class.opened);
                         clearInterval(Interval);
                     }.bind(this), 600);
-                    
+
                 } else {
-                    $(this.ele).addClass(this.option.class.opened)
+                    $(this.ele).addClass('opened ' + this.option.class.opened)
                 }
 
                 console.log('this is open!!!!!!!!!!!!!');
@@ -96,19 +96,19 @@
 
             Module.prototype.close = function () {
 
-                $(this.ele).removeClass(this.option.class.opening)
+                $(this.ele).removeClass('opened ' + this.option.class.opened)
                 //handle transition true or false
                 if (this.option.transition) {
-                    $(this.ele).addClass(this.option.class.closing)
-                    const Interval = setInterval(this.option.whenTransition,20)
+                    $(this.ele).addClass('closing ' + this.option.class.closing)
+                    const Interval = setInterval(this.option.whenTransition, 20)
                     setTimeout(function () {
-                        $(this.ele).removeClass(this.option.class.closing);
-                        $(this.ele).addClass(this.option.class.closed);
+                        $(this.ele).removeClass('closing ' + this.option.class.closing);
+                        $(this.ele).addClass('closed ' + this.option.class.closed);
                         clearInterval(Interval);
                     }.bind(this), 600);
-                    
+
                 } else {
-                    $(this.ele).addClass(this.option.class.closed)
+                    $(this.ele).addClass('closed ' + this.option.class.closed)
                 }
                 console.log('this is close!!!!!!!!!!!!!');
             };
@@ -131,19 +131,27 @@
                         }
                     } else {
                         opts = $.extend({}, Module.DEFAULTS, (typeof methods === 'object' && methods), (typeof options === 'object' && options));
+
+                        if (typeof opts.class.opened === 'undefined') opts.class.opened = '';
+                        if (typeof opts.class.closed === 'undefined') opts.class.closed = '';
+                        if (typeof opts.class.opening === 'undefined') opts.class.opening = '';
+                        if (typeof opts.class.closing === 'undefined') opts.class.closing = '';
                         module = new Module(this, opts);
                         $this.data(ModuleName, module);
 
                         //init
                         if (module.option.openAtStart)
-                            $(module.ele).addClass('opened')
+                            $(module.ele).addClass('opened ' + module.option.class.opened)
                         else
-                            $(module.ele).addClass('closed')
+                            $(module.ele).addClass('closed ' + module.option.class.closed)
+
                         console.log('this is init!!!!!!!');
                         const text = module.option.openAtStart ? module.option.button.closeText : module.option.button.openText
-                        $this.find(".wrap").append('<button class="btn">' + text +'</button>');
+                        const btn_class = module.option.button.class ? module.option.button.class : ''
+                        $this.find(".wrap").append('<div class="btn" >' + text + '</div>');
+                        $('.btn').addClass(btn_class)
                         $('.btn').click(module.click.bind(module));
-                        
+
                     }
                 });
             };
@@ -161,9 +169,20 @@
         $(function () {
             $('.banner').banner({
                 openAtStart: true,
-                autoToggle: 3000,
+                autoToggle: true,
                 transition: true,
+                class: {
+                    opened: 'red',
+                    closed: 'blue'
+                },
+                button: {
+                    closeText: 'close', 
+                    openText: 'open', 
+                    //class: 'btnt'
+                },
             });
+
+            $('.banner').banner('toggle');
 
         });
 
